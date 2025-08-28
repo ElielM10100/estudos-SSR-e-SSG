@@ -1,31 +1,37 @@
+
 # 🎨 Mini Blog de Artistas
 
 Um projeto simples criado com **Next.js**, **React** e **Tailwind CSS**, que permite explorar conceitos de rotas dinâmicas, renderização de páginas e navegação entre páginas.
+
+O objetivo é praticar **SSR (Server-Side Rendering)**, **SSG (Static Site Generation)** e boas práticas de desenvolvimento front-end com Next.js e TypeScript.
 
 ---
 
 ## 🚀 Tecnologias
 
-- **Next.js** - Framework React para SSR (Server Side Rendering) e rotas dinâmicas
+- **Next.js** - Framework React com suporte a SSR e SSG
 - **React** - Biblioteca de UI
 - **Tailwind CSS** - Framework CSS utilitário para estilos rápidos e responsivos
+- **TypeScript** - Tipagem estática e segurança no desenvolvimento
 
 ---
 
 ## 📂 Estrutura do Projeto
 
 ```
+
 mini-blog/
 ├── pages/
 │   ├── index.tsx        # Página inicial (Home)
 │   ├── posts/
 │   │   ├── index.tsx    # Lista de artistas
-│   │   └── [id].tsx     # Página dinâmica de detalhes do artista
+│   │   └── \[id].tsx     # Página dinâmica de detalhes do artista
 ├── styles/              # Estilos globais
 ├── public/              # Imagens e arquivos estáticos
 ├── package.json
 └── README.md
-```
+
+````
 
 ---
 
@@ -33,8 +39,8 @@ mini-blog/
 
 1. Clone o repositório:
 ```bash
-git clone https://github.com/seu-usuario/mini-blog.git
-```
+git clone https://github.com/ElielM10100/estudos-SSR-e-SSG.git
+````
 
 2. Acesse a pasta do projeto:
 
@@ -69,7 +75,7 @@ http://localhost:3000
    * Lista todos os artistas cadastrados
    * Cada artista possui botão **"Ler mais"** que leva à página de detalhes
 
-2. **Página de Detalhes**
+2. **Página de Detalhes do Artista**
 
    * URL dinâmica baseada no ID do artista (ex.: `/posts/1`)
    * Mostra nome e biografia do artista
@@ -79,11 +85,33 @@ http://localhost:3000
 
    * Implementadas usando `[id].tsx` em `pages/posts/`
    * Permite criar uma página única para cada artista sem criar arquivos separados manualmente
+   * Ideal para **SSR e SSG**, podendo ser renderizado no servidor ou gerado estaticamente
 
 4. **Estilo Responsivo**
 
    * Layout limpo e responsivo com Tailwind CSS
    * Cards interativos com hover e transições suaves
+
+---
+
+## ⚡ Conceitos Importantes
+
+### SSR (Server-Side Rendering)
+
+* A página é renderizada no servidor a cada requisição
+* Útil quando você precisa de dados dinâmicos ou SEO otimizado
+* No Next.js, usado em `getServerSideProps`
+
+### SSG (Static Site Generation)
+
+* Páginas são geradas no momento do build
+* Ideal para conteúdo que não muda com frequência
+* No Next.js, usado em `getStaticProps` e `getStaticPaths`
+
+### Rotas Dinâmicas
+
+* `[id].tsx` cria páginas únicas para cada item do objeto/artista
+* A URL é mapeada automaticamente para a página correta
 
 ---
 
@@ -98,7 +126,7 @@ Se aparecer:
 ```
 
 **Motivo:**
-O Next.js pode não reconhecer as rotas dinâmicas imediatamente por conta do **cache de build ou Fast Refresh**.
+O Next.js pode não reconhecer rotas dinâmicas imediatamente devido ao **Fast Refresh ou cache de build**.
 
 **Soluções:**
 
@@ -130,9 +158,9 @@ npm run dev
 ### 2️⃣ Erros de Tipagem do TypeScript (7053, 2352)
 
 **Motivo:**
-O TypeScript não reconhece `router.query.id` como chave do objeto `artists`. Ele é sempre uma string (ou array de strings).
+O TypeScript não reconhece `router.query.id` como chave do objeto `artists`. Ele sempre vem como string (ou array de strings).
 
-**Solução usada:**
+**Solução usada no projeto:**
 
 ```ts
 const artists = {
@@ -177,4 +205,4 @@ Feito por **Eliel Nicolas** como estudo de **Next.js, React e Tailwind CSS**, ap
 * [Tailwind CSS](https://tailwindcss.com/)
 * [Fast Refresh Next.js](https://nextjs.org/docs/messages/fast-refresh-reload)
 
-```
+
