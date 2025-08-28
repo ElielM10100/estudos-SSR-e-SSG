@@ -1,40 +1,180 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# 🎨 Mini Blog de Artistas
 
-## Getting Started
+Um projeto simples criado com **Next.js**, **React** e **Tailwind CSS**, que permite explorar conceitos de rotas dinâmicas, renderização de páginas e navegação entre páginas.
 
-First, run the development server:
+---
+
+## 🚀 Tecnologias
+
+- **Next.js** - Framework React para SSR (Server Side Rendering) e rotas dinâmicas
+- **React** - Biblioteca de UI
+- **Tailwind CSS** - Framework CSS utilitário para estilos rápidos e responsivos
+
+---
+
+## 📂 Estrutura do Projeto
+
+```
+mini-blog/
+├── pages/
+│   ├── index.tsx        # Página inicial (Home)
+│   ├── posts/
+│   │   ├── index.tsx    # Lista de artistas
+│   │   └── [id].tsx     # Página dinâmica de detalhes do artista
+├── styles/              # Estilos globais
+├── public/              # Imagens e arquivos estáticos
+├── package.json
+└── README.md
+```
+
+---
+
+## ⚙️ Como rodar o projeto
+
+1. Clone o repositório:
+```bash
+git clone https://github.com/seu-usuario/mini-blog.git
+```
+
+2. Acesse a pasta do projeto:
+
+```bash
+cd mini-blog
+```
+
+3. Instale as dependências:
+
+```bash
+npm install
+```
+
+4. Inicie o servidor de desenvolvimento:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. Abra no navegador:
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```
+http://localhost:3000
+```
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+---
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+## 🖌️ Funcionalidades
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **Página Inicial (Home)**
 
-## Learn More
+   * Lista todos os artistas cadastrados
+   * Cada artista possui botão **"Ler mais"** que leva à página de detalhes
 
-To learn more about Next.js, take a look at the following resources:
+2. **Página de Detalhes**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+   * URL dinâmica baseada no ID do artista (ex.: `/posts/1`)
+   * Mostra nome e biografia do artista
+   * Link de volta para a lista de artistas
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3. **Rotas Dinâmicas**
 
-## Deploy on Vercel
+   * Implementadas usando `[id].tsx` em `pages/posts/`
+   * Permite criar uma página única para cada artista sem criar arquivos separados manualmente
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+4. **Estilo Responsivo**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+   * Layout limpo e responsivo com Tailwind CSS
+   * Cards interativos com hover e transições suaves
+
+---
+
+## ⚠️ Problemas Comuns
+
+### 1️⃣ Página 404 ao clicar em "Ler mais"
+
+Se aparecer:
+
+```
+404 - This page could not be found
+```
+
+**Motivo:**
+O Next.js pode não reconhecer as rotas dinâmicas imediatamente por conta do **cache de build ou Fast Refresh**.
+
+**Soluções:**
+
+* Acesse diretamente a URL do artista:
+
+```
+http://localhost:3000/posts/1
+```
+
+* Limpe o cache do Next.js e reinicie o servidor:
+
+```bash
+# Linux / Mac
+rm -rf .next
+
+# Windows PowerShell
+Remove-Item -Recurse -Force .next
+
+npm run dev
+```
+
+* Verifique se os arquivos `.tsx` estão corretamente na pasta `pages/posts/`:
+
+  * `index.tsx` → lista de artistas
+  * `[id].tsx` → página dinâmica
+
+---
+
+### 2️⃣ Erros de Tipagem do TypeScript (7053, 2352)
+
+**Motivo:**
+O TypeScript não reconhece `router.query.id` como chave do objeto `artists`. Ele é sempre uma string (ou array de strings).
+
+**Solução usada:**
+
+```ts
+const artists = {
+  "1": { name: "Vincent van Gogh", bio: "..." },
+  "2": { name: "Claude Monet", bio: "..." },
+  "3": { name: "Leonardo da Vinci", bio: "..." },
+};
+
+const artistId = Array.isArray(id) ? id[0] : id;
+
+if (!artistId || !artists[artistId]) {
+  return <p>Artista não encontrado.</p>;
+}
+
+const artist = artists[artistId];
+```
+
+Isso garante que a página funcione corretamente sem erros de tipagem.
+
+---
+
+## 📝 Próximos Passos / Melhorias
+
+* Integrar com uma API real de artistas
+* Adicionar imagens de cada artista
+* Implementar busca e filtros
+* Melhorar animações e interatividade com Tailwind + Framer Motion
+* Tornar o layout mais chamativo, tipo blog ou portfólio
+
+---
+
+## 👨‍💻 Autor
+
+Feito por **Eliel Nicolas** como estudo de **Next.js, React e Tailwind CSS**, aplicando boas práticas de rotas, tipagem e responsividade.
+
+---
+
+## 🔗 Links Úteis
+
+* [Documentação Next.js](https://nextjs.org/docs)
+* [Documentação React](https://react.dev/)
+* [Tailwind CSS](https://tailwindcss.com/)
+* [Fast Refresh Next.js](https://nextjs.org/docs/messages/fast-refresh-reload)
+
+```
